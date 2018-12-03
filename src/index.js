@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {combineReducers,createStore} from  'redux'
-import todos from './store'
+import todos, {addTodo} from './store'
 
 
 
@@ -15,8 +15,9 @@ const rootReducer=combineReducers({
 const store=createStore(rootReducer);
 
 
-
-
+console.warn('before dispatch:',store.getState());
+store.dispatch(addTodo('Go shopping'));
+console.warn ('after dispatch:', store.getState())
 
 
 
