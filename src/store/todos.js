@@ -12,7 +12,7 @@ export default (state=[],action)=>{
         case 'ADD_TODO':
         const newTodo= { text:action.text, completed:false};
         return [...state, newTodo];
-        case'SWITCH_TODO_COMPETED':
+        case 'SWITCH_TODO_COMPETED':
         return[
             ...state.slice(0, action.index),
             {

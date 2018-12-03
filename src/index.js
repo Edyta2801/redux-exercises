@@ -1,42 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// REDUX IMPORTS
+import { combineReducers, createStore } from 'redux';
+
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { combineReducers, createStore } from 'redux'
-import todos, { addTodo } from './store/todos'
-import counter, {increment,decrement} from './store/counter';
+// REDUCERS IMPORT
+import todos, { addTodo } from './store/todos';
+import counter, { increment } from './store/counter';
+import cart, { addToCart } from './store/cart';
 
-
+// REDUX CONFIG GOES HERE
 const rootReducer = combineReducers({
-    counter,
-    todos
-})
+  cart,
+  counter,
+  todos
+});
+const store = createStore(
+  rootReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ &&
+  window.__REDUX_DEVTOOLS_EXTENSION__()
 
-const store = createStore(rootReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ &&
-    window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+  );
+// REDUX CONFIG END
 
+window.increaseCounter = () => store.dispatch(increment());
+window.addTodoItem = (text) => store.dispatch(addTodo(text));
 
-// console.warn('before dispatch:', store.getState());
-store.dispatch(addTodo('Go shopping'));
-store.dispatch(addTodo('Some other thing'));
-store.dispatch(addTodo('Clean the house'));
-store.dispatch(addTodo('Feed cat'));
-// console.warn('after dispatch:', store.getState());
-store.dispatch(increment());
-
-window.increaseCounter=()=>store.dispatch(increment());
-window.addToDoItem=(text)=>store.dispatch(addTodo(text));
-
-window.decrementCounter=()=>store.dispatch(decrement())
+// here
+window.addToCart = price => store.dispatch(addToCart(price));
 
 
 ReactDOM.render(<App />, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.unregister();
-
