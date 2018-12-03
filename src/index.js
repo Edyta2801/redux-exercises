@@ -17,6 +17,9 @@ const store=createStore(rootReducer);
 
 console.warn('before dispatch:',store.getState());
 store.dispatch(addTodo('Go shopping'));
+store.dispatch(addTodo('Some other thing'));
+store.dispatch(addTodo('Clean the house'));
+store.dispatch(addTodo('Feed cat'));
 console.warn ('after dispatch:', store.getState())
 
 
