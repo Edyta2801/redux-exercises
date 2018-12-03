@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { combineReducers, createStore } from 'redux'
 import todos, { addTodo } from './store/todos'
-import counter from './store/counter';
+import counter, {increment} from './store/counter';
 
 
 const rootReducer = combineReducers({
@@ -19,12 +19,17 @@ const store = createStore(rootReducer,
 );
 
 
-console.warn('before dispatch:', store.getState());
+// console.warn('before dispatch:', store.getState());
 store.dispatch(addTodo('Go shopping'));
 store.dispatch(addTodo('Some other thing'));
 store.dispatch(addTodo('Clean the house'));
 store.dispatch(addTodo('Feed cat'));
-console.warn('after dispatch:', store.getState())
+// console.warn('after dispatch:', store.getState());
+store.dispatch(increment());
+
+window.increaseCounter=()=>store.dispatch(increment());
+window.addToDoItem=(text)=>store.dispatch(addTodo(text));
+
 
 
 
