@@ -4,11 +4,14 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {combineReducers,createStore} from  'redux'
+import todos from './store'
 
 
 
+const rootReducer=combineReducers({
+    todos
+})
 
-const rootReducer=combineReducers({})
 const store=createStore(rootReducer);
 
 
