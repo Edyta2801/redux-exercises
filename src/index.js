@@ -4,11 +4,12 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { combineReducers, createStore } from 'redux'
-import todos, { addTodo } from './store'
-
+import todos, { addTodo } from './store/todos'
+import counter from './store/counter';
 
 
 const rootReducer = combineReducers({
+    counter,
     todos
 })
 
