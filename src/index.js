@@ -31,6 +31,11 @@ window.addTodoItem = (text) => store.dispatch(addTodo(text));
 // here
 window.addToCart = price => store.dispatch(addToCart(price));
 
+window.addToCart = (title, price) => store.dispatch(addToCart(title, price));
+
+
+
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
 serviceWorker.unregister();
