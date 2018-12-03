@@ -23,13 +23,17 @@ const store = createStore(
   rootReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ &&
   window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
-  );
 // REDUX CONFIG END
 
 window.increaseCounter = () => store.dispatch(increment());
 window.addTodoItem = (text) => store.dispatch(addTodo(text));
 
+store.dispatch(addTodo('cooking'))
+store.dispatch(addTodo('cleaning'))
+store.dispatch(addTodo('learning'))
+store.dispatch(addTodo('washing'))
 // here
 window.addToCart = price => store.dispatch(addToCart(price));
 
