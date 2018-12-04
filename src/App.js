@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
+import TodoList from './TodoList'
 
 
-class App extends Component {
+class App extends React.Component {
   render() {
-    return (
-      <div>
-      Hi, Redux
-    </div>
-      );
+    return <TodoList todos={[
+      { text: 'First todo from App' },
+      { text: 'Second todo from App' }
+    ]}/>;
   }
 }
 
-export default App;
+export default App
