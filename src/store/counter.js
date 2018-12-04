@@ -2,8 +2,9 @@ const INCREMENT = 'INCREMENT'
 const DECREMENT = 'DECREMENT'
 const RESET = 'RESET'
 
-export const increment = () => ({
-    type: INCREMENT
+export const increment = (value=1) => ({
+    type: INCREMENT,
+    value
 });
 export const decrement = () => ({
     type: DECREMENT
@@ -17,7 +18,7 @@ export const reset = () => ({
 export default (state = 0, action) => {
     switch (action.type) {
         case 'INCREMENT':
-            return (state + 1)
+            return (state + action.value)
         case 'DECREMENT':
             return (state - 1)
         case ' RESET':
