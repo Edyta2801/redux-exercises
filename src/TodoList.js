@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addTodo, toggleTodo } from './store/todos'
+import { addTodo, toggleTodo, deleteTodo } from './store/todos'
 
 
 const mapStateToProps = store => ({
@@ -12,7 +12,8 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch => ({
     __addTodo: text => dispatch(addTodo(text)),
-    __toggleTodo: index => dispatch(toggleTodo(index))
+    __toggleTodo: index => dispatch(toggleTodo(index)),
+    _deleteTodo: index => dispatch(deleteTodo(index))
 })
 
 
@@ -35,6 +36,9 @@ class TodoList extends React.PureComponent {
 
 
     }
+    handleDeleteTodo = index => {
+        this.props._deleteTodo(index)
+    }
 
     render() {
         return <div>
@@ -46,7 +50,9 @@ class TodoList extends React.PureComponent {
                         textDecoration: todo.completed ? 'line-through' : 'none'
                     }}
                     onClick={() => this.handleTodoClick(index)}
-                    key={todo.text}>{todo.text} </div>
+                    key={todo.text}>{todo.text}
+                    <button onClick={() => this.handleDeleteTodo(index)}>X</button>
+                </div>
             )
             }
         </div>
