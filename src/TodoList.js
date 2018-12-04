@@ -4,15 +4,15 @@ import { addTodo, toggleTodo, deleteTodo } from './store/todos'
 
 
 const mapStateToProps = store => ({
-    __todos: store.todos.allTodos,
+    _todos: store.todos.allTodos,
     visibleTodos: store.todos.visibleTodos
 })
 
 
 
 const mapDispatchToProps = dispatch => ({
-    __addTodo: text => dispatch(addTodo(text)),
-    __toggleTodo: index => dispatch(toggleTodo(index)),
+    _addTodo: text => dispatch(addTodo(text)),
+    _toggleTodo: index => dispatch(toggleTodo(index)),
     _deleteTodo: index => dispatch(deleteTodo(index))
 })
 
@@ -28,11 +28,11 @@ class TodoList extends React.PureComponent {
 
     handleButtonClick = () => {
         console.log('want to save todo: ', this.state.value);
-        this.props.__addTodo(this.state.value)
+        this.props._addTodo(this.state.value)
     }
 
     handleTodoClick = index => {
-        this.props.__toggleTodo(index)
+        this.props._toggleTodo(index)
 
 
     }
@@ -41,27 +41,36 @@ class TodoList extends React.PureComponent {
     }
 
     render() {
+        console.log('TodoList render,  props are:', this.props);
         return <div>
-            <input onChange={this.handleInputChange} />
-            <button onClick={this.handleButtonClick}>Add todo</button>
-            {this.props.__todos.map((todo, index) =>
-                <div
-                    style={{
-                        textDecoration: todo.completed ? 'line-through' : 'none'
-                    }}
-                    onClick={() => this.handleTodoClick(index)}
-                    key={todo.text}>{todo.text}
-                    <button onClick={() => this.handleDeleteTodo(index)}>X</button>
-                </div>
-            )
-            }
+            {this.renderInput()}
+            {this.renderList()}
         </div>
+    }
+
+    renderInput=()=> {
+        return <div>
+            <input className="new-todo__input" onChange={this.handleInputChange} />
+            <button
+                onClick={this.handleButtonClick}>
+                Add todo
+          </button>
+        </div>;
+    }
+
+    renderList=()=> {
+        return this.props._todos.map((todo, index) =>
+            <div
+                className="todo"
+                style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
+                key={todo.text}>
+                <div onClick={() => this.handleTodoClick(index)}>{todo.text}</div>
+                <button
+                    type="button"
+                    onClick={() => this.handleDeleteTodo(index)}>X</button>
+            </div>
+        );
     }
 }
 
-
-
-
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
