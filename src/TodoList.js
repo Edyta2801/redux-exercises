@@ -4,14 +4,14 @@ import { addTodo } from './store/todos'
 
 
 const mapStateToProps=store=>({
-    todos:store.todos.allTodos,
+    __todos:store.todos.allTodos,
     visibleTodos:store.todos.visibleTodos
   })
 
 
 
 const mapDispatchToProps = dispatch => ({
-    addTodo: text => dispatch(addTodo(text))
+    __addTodo: text => dispatch(addTodo(text))
 })
 
 
@@ -26,14 +26,14 @@ class TodoList extends React.PureComponent {
 
     handleButtonClick = () => {
         console.log('want to save todo: ', this.state.value);
-        this.props.addTodo(this.state.value)
+        this.props.__addTodo(this.state.value)
     }
 
     render() {
         return <div>
             <input onChange={this.handleInputChange} />
             <button onClick={this.handleButtonClick}>Add todo</button>
-            {this.props.todos.map(todo =>
+            {this.props.__todos.map(todo =>
                 <div key={todo.text}>{todo.text}</div>
             )}
         </div>
