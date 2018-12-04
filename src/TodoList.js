@@ -2,6 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addTodo } from './store/todos'
 
+
+const mapStateToProps=store=>({
+    todos:store.todos.allTodos,
+    visibleTodos:store.todos.visibleTodos
+  })
+
+
+
 const mapDispatchToProps = dispatch => ({
     addTodo: text => dispatch(addTodo(text))
 })
@@ -35,4 +43,4 @@ class TodoList extends React.PureComponent {
 
 
 
-export default connect(null, mapDispatchToProps)(TodoList)
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
