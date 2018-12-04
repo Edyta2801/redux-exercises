@@ -17,7 +17,7 @@ import cart, { addToCart } from './store/cart';
 const rootReducer = combineReducers({
   cart,
   counter,
-  todos
+  // todos
 });
 const store = createStore(
   rootReducer,
