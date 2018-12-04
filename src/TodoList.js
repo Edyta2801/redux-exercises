@@ -1,7 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { addTodo } from './store/todos'
+
+const mapDispatchToProps = dispatch => ({
+    addTodo: text => dispatch(addTodo(text))
+})
+
+
 
 class TodoList extends React.PureComponent {
-    
+
     state = {};
 
     handleInputChange = event => {
@@ -10,6 +18,7 @@ class TodoList extends React.PureComponent {
 
     handleButtonClick = () => {
         console.log('want to save todo: ', this.state.value);
+        this.props.addTodo(this.state.value)
     }
 
     render() {
@@ -26,4 +35,4 @@ class TodoList extends React.PureComponent {
 
 
 
-export default TodoList
+export default connect(null, mapDispatchToProps)(TodoList)
