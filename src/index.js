@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // REDUX IMPORTS
 import { combineReducers, createStore } from 'redux';
-
+import { Provider } from 'react-redux'
 
 
 import './index.css';
@@ -39,12 +39,19 @@ window.addToCart = price => store.dispatch(addToCart(price));
 
 window.addToCart = (title, price) => store.dispatch(addToCart(title, price));
 
-window.filterTodos=text=>store.dispatch(filterTodos(text))
-window.addTodo=text=>store.dispatch(addTodo(text))
+window.filterTodos = text => store.dispatch(filterTodos(text))
+window.addTodo = text => store.dispatch(addTodo(text))
 
-window.toggleTodo=(index)=>store.dispatch(toggleTodo(index))
+window.toggleTodo = (index) => store.dispatch(toggleTodo(index))
 
-window.deleteTodo=(index)=>store.dispatch(deleteTodo(index))
+window.deleteTodo = (index) => store.dispatch(deleteTodo(index))
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <Provider
+
+    store={store}
+  >
+    <App />
+  </Provider >,
+  document.getElementById('root'));
 serviceWorker.unregister();
