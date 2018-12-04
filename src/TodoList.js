@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addTodo, toggleTodo, deleteTodo } from './store/todos'
+import { addTodo, toggleTodo, deleteTodo, filterTodos } from './store/todos'
 
 
 const mapStateToProps = store => ({
-    _todos: store.todos.allTodos,
-    visibleTodos: store.todos.visibleTodos
+    _todos: store.todos.visibleTodos,
+    // visibleTodos: store.todos.visibleTodos
 })
 
 
@@ -13,7 +13,8 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
     _addTodo: text => dispatch(addTodo(text)),
     _toggleTodo: index => dispatch(toggleTodo(index)),
-    _deleteTodo: index => dispatch(deleteTodo(index))
+    _deleteTodo: index => dispatch(deleteTodo(index)),
+    _filterTodo: filterText => dispatch(filterTodos(filterText))
 })
 
 
@@ -40,15 +41,35 @@ class TodoList extends React.PureComponent {
         this.props._deleteTodo(index)
     }
 
+
+    handleFilterChange = (event) => {
+        this.setState({ filterValue: event.target.value })
+    }
+
+    handleFilterClick = ()=>{
+        this.props._filterTodo(this.state.filterValue)
+        this.setState({filterValue:''})
+    }
+
     render() {
         console.log('TodoList render,  props are:', this.props);
         return <div>
+            {this.renderFilterTodos()}
             {this.renderInput()}
             {this.renderList()}
         </div>
     }
 
-    renderInput=()=> {
+    renderFilterTodos = () => {
+        return <div>
+            <input onChange={this.handleFilterChange} />
+            <button onClick={this.handleFilterClick}>Filter</button>
+        </div>
+    }
+
+
+
+    renderInput = () => {
         return <div>
             <input className="new-todo__input" onChange={this.handleInputChange} />
             <button
@@ -58,7 +79,7 @@ class TodoList extends React.PureComponent {
         </div>;
     }
 
-    renderList=()=> {
+    renderList = () => {
         return this.props._todos.map((todo, index) =>
             <div
                 className="todo"
@@ -72,5 +93,6 @@ class TodoList extends React.PureComponent {
         );
     }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
